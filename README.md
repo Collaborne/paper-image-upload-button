@@ -4,7 +4,7 @@ Material Design upload button that previews the image (Polymer)
 
 To use this elements:
 
-`bower install paper-image-upload-button`
+`bower install Collaborne/paper-image-upload-button`
 
 <!--
 ```
