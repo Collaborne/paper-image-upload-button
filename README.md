@@ -17,7 +17,9 @@ To use this elements:
 ```
 -->
 ```html
-<paper-image-upload-button image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"></paper-image-upload-button>
+<paper-image-upload-button
+	image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
+></paper-image-upload-button>
 ```
 
 ## License
