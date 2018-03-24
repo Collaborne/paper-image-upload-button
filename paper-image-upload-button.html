@@ -1,0 +1,118 @@
+<!doctype html>
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+
+<dom-module id="paper-image-upload-button">
+	<template>
+		<style>
+			:host {
+				display: inline-block;
+				position: relative;
+				cursor: pointer;
+				overflow: hidden;
+				border-width: 2px;
+				border-radius: var(--paper-image-upload-button-border-radius, 50%);
+				border-style: var(--paper-image-upload-button-border-style, solid);
+				border-color: var(--paper-image-upload-button-border-color, gray);
+				transition: background-color 0.25s;
+			}
+			:host(:hover) {
+				border-color: var(--paper-image-upload-button-hover-border-color, black);
+			}
+
+			#image {
+				display: inline-block;
+				@apply --layout-center-center;
+				@apply --layout-vertical;
+				width: var(--paper-image-upload-button-width, 92px);
+				height: var(--paper-image-upload-button-height, 92px);
+				box-sizing: border-box;
+				color: white;
+				background-size: cover;
+				background-position: center;
+				background-color: var(--paper-image-upload-button-background-color, black);
+				transition: filter 0.25s, background-color 0.25s;
+			}
+			:host(:hover) #image {
+				filter: brightness(40%);
+				background-color: var(--paper-image-upload-button-hover-background-color, black);
+			}
+
+			.icon {
+				position: absolute;
+				top: calc(50% - 12px);
+				left: calc(50% - 12px);
+				color: white;
+				opacity: 0;
+				transition: opacity 0.25s;
+			}
+			:host(:hover) .icon {
+				opacity: 1;
+			}
+		</style>
+		<div id="image" on-tap="_onTapUpload"></div>
+		<iron-icon class="icon" icon="[[icon]]" on-tap="_onTapUpload"></iron-icon>
+		<input id="file" type="file" hidden/>
+	</template>
+
+	<script>
+		/**
+		 * @customElement
+		 * @polymer
+		 */
+		class PaperImageUploadButton extends Polymer.GestureEventListeners(Polymer.Element) {
+			static get is() {
+				return 'paper-image-upload-button';
+			}
+
+			static get properties() {
+				return {
+					/**
+					 * URL to the currently shown image
+					 */
+					image: String,
+					icon: {
+						type: String,
+						value: 'icons:file-upload'
+					},
+				};
+			}
+
+			static get observers() {
+				return [
+					'_onImageChanged(image)',
+				];
+			}
+
+			ready() {
+				super.ready();
+
+				this.$.file.addEventListener('change', e => {
+					const files = this.$.file.files;
+					if (files.length > 0) {
+						this.dispatchEvent(new CustomEvent('upload-image', {
+							detail: files[0],
+							bubbles: true,
+							composed: true,
+						}));
+					}
+					// Reset file input element, so that the user can upload the same
+					// file again (e.g. if the dialog was cancelled in between)
+					this.$.file.value = '';
+				});
+			}
+
+			_onImageChanged(image) {
+				this.$.image.style.backgroundImage = image ? `url(${image})` : null;
+			}
+
+			_onTapUpload() {
+				// Trigger file upload
+				this.$.file.click();
+			}
+		}
+		window.customElements.define(PaperImageUploadButton.is, PaperImageUploadButton);
+	</script>
+</dom-module>

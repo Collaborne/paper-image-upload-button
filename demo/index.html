@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>paper-image-upload-button demo</title>
+
+		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../paper-image-upload-button.html">
+
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles">
+			</style>
+		</custom-style>
+	</head>
+	<body>
+		<div class="vertical-section-container centered">
+			<h3>Basic demo</h3>
+			<demo-snippet>
+				<template>
+					<dom-bind>
+						<template>
+							<paper-image-upload-button
+								image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
+								on-upload-image="onUploadImage"
+							></paper-image-upload-button>
+						</template>
+					</dom-bind>
+
+					<script>
+							const scope = document.querySelector("dom-bind");
+							scope.onUploadImage = e => {
+								const fileToUpload = e.detail;
+								alert(`Upload image "${fileToUpload.name}"`);
+							};
+					</script>
+				</template>
+			</demo-snippet>
+
+			<h3>Styling</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						.styled {
+							--paper-image-upload-button-width: 180px;
+							--paper-image-upload-button-height: 120px;
+
+							--paper-image-upload-button-border-radius: 10px;
+							--paper-image-upload-button-border-style: dashed;
+							--paper-image-upload-button-border-color: red;
+
+							--paper-image-upload-button-hover-border-color: blue;
+						}
+					</style>
+					<paper-image-upload-button
+						image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
+						class="styled"
+					></paper-image-upload-button>
+				</template>
+			</demo-snippet>
+
+			<h3>No existing image</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						.non-existing {
+							--paper-image-upload-button-hover-background-color: yellow;
+							--paper-image-upload-button-background-color: blue;
+						}
+					</style>
+					<paper-image-upload-button class="non-existing"></paper-image-upload-button>
+				</template>
+			</demo-snippet>		</div>
+	</body>
+</html>
