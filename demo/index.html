@@ -10,6 +10,7 @@
 
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
 		<link rel="import" href="../paper-image-upload-button.html">
 
 		<custom-style>
@@ -27,7 +28,9 @@
 							<paper-image-upload-button
 								image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
 								on-upload-image="onUploadImage"
+								disabled="[[disabled]]"
 							></paper-image-upload-button>
+							<paper-checkbox checked="{{disabled}}">Disabled</paper-checkbox>
 						</template>
 					</dom-bind>
 

@@ -15,7 +15,6 @@ Material Design upload button that previews the image (Polymer)
 			:host {
 				display: inline-block;
 				position: relative;
-				cursor: pointer;
 				overflow: hidden;
 				border-width: 2px;
 				border-radius: var(--paper-image-upload-button-border-radius, 50%);
@@ -23,7 +22,10 @@ Material Design upload button that previews the image (Polymer)
 				border-color: var(--paper-image-upload-button-border-color, gray);
 				transition: background-color 0.25s;
 			}
-			:host(:hover) {
+			:host(:not([disabled])) {
+				cursor: pointer;
+			}
+			:host(:not([disabled]):hover) {
 				border-color: var(--paper-image-upload-button-hover-border-color, black);
 			}
 
@@ -40,7 +42,7 @@ Material Design upload button that previews the image (Polymer)
 				background-color: var(--paper-image-upload-button-background-color, black);
 				transition: filter 0.25s, background-color 0.25s;
 			}
-			:host(:hover) #image {
+			:host(:not([disabled]):hover) #image {
 				filter: brightness(40%);
 				background-color: var(--paper-image-upload-button-hover-background-color, black);
 			}
@@ -53,7 +55,7 @@ Material Design upload button that previews the image (Polymer)
 				opacity: 0;
 				transition: opacity 0.25s;
 			}
-			:host(:hover) .icon {
+			:host(:not([disabled]):hover) .icon {
 				opacity: 1;
 			}
 		</style>
@@ -85,6 +87,15 @@ Material Design upload button that previews the image (Polymer)
 					icon: {
 						type: String,
 						value: 'icons:file-upload'
+					},
+
+					/**
+					 * Set to true if users should be allowed to upload images
+					 */
+					disabled: {
+						type: Boolean,
+						value: false,
+						reflectToAttribute: true,
 					},
 				};
 			}
@@ -118,6 +129,10 @@ Material Design upload button that previews the image (Polymer)
 			}
 
 			_onTapUpload() {
+				if (this.disabled) {
+					return;
+				}
+
 				// Trigger file upload
 				this.$.file.click();
 			}
