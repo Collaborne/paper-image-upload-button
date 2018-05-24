@@ -22,10 +22,10 @@ Material Design upload button that previews the image (Polymer)
 				border-color: var(--paper-image-upload-button-border-color, gray);
 				transition: background-color 0.25s;
 			}
-			:host(:not([disabled])) {
+			:host([can-upload]) {
 				cursor: pointer;
 			}
-			:host(:not([disabled]):hover) {
+			:host([can-upload]:hover), :host([uploading]) {
 				border-color: var(--paper-image-upload-button-hover-border-color, black);
 			}
 
@@ -42,7 +42,7 @@ Material Design upload button that previews the image (Polymer)
 				background-color: var(--paper-image-upload-button-background-color, black);
 				transition: filter 0.25s, background-color 0.25s;
 			}
-			:host(:not([disabled]):hover) #image {
+			:host([can-upload]:hover) #image, :host([uploading]) #image {
 				filter: brightness(40%);
 				background-color: var(--paper-image-upload-button-hover-background-color, black);
 			}
@@ -55,12 +55,24 @@ Material Design upload button that previews the image (Polymer)
 				opacity: 0;
 				transition: opacity 0.25s;
 			}
-			:host(:not([disabled]):hover) .icon {
+			:host([can-upload]:hover) .icon, :host([uploading]) .icon {
 				opacity: 1;
+			}
+
+			@keyframes spinning {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			:host([uploading]) .icon {
+				animation: spinning 1s linear infinite;
 			}
 		</style>
 		<div id="image" on-tap="_onTapUpload"></div>
-		<iron-icon class="icon" icon="[[icon]]" on-tap="_onTapUpload"></iron-icon>
+		<iron-icon class="icon" icon="[[_computeIcon(icon, uploading)]]" on-tap="_onTapUpload"></iron-icon>
 		<input id="file" type="file" hidden/>
 	</template>
 
@@ -90,11 +102,28 @@ Material Design upload button that previews the image (Polymer)
 					},
 
 					/**
+					 * True if the image is currently uploading
+					 */
+					uploading: {
+						type: Boolean,
+						value: false,
+						reflectToAttribute: true,
+					},
+
+					/**
 					 * Set to true if users should be allowed to upload images
 					 */
 					disabled: {
 						type: Boolean,
 						value: false,
+					},
+
+					/**
+					 * Set to true if users should be allowed to upload images
+					 */
+					canUpload: {
+						type: Boolean,
+						computed: '_computeCanUpload(disabled, uploading)',
 						reflectToAttribute: true,
 					},
 				};
@@ -129,12 +158,20 @@ Material Design upload button that previews the image (Polymer)
 			}
 
 			_onTapUpload() {
-				if (this.disabled) {
+				if (!this.canUpload) {
 					return;
 				}
 
 				// Trigger file upload
 				this.$.file.click();
+			}
+
+			_computeCanUpload(disabled, uploading) {
+				return !disabled && !uploading;
+			}
+
+			_computeIcon(icon, uploading) {
+				return !uploading ? icon : 'icons:refresh';
 			}
 		}
 		window.customElements.define(PaperImageUploadButton.is, PaperImageUploadButton);
