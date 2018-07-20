@@ -37,9 +37,10 @@ Material Design upload button that previews the image (Polymer)
         height: var(--paper-image-upload-button-height, 92px);
         box-sizing: border-box;
         color: white;
-        background-size: cover;
-        background-position: center;
+        background-size: var(--paper-image-upload-button-image-sizing, cover);
+        background-position: var(--paper-image-upload-button-image-sizing, center);
         background-color: var(--paper-image-upload-button-background-color, black);
+        background-repeat: no-repeat;
         transition: filter 0.25s, background-color 0.25s;
       }
       :host([can-upload]:hover) #image, :host([uploading]) #image {

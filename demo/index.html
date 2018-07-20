@@ -70,6 +70,26 @@
         </template>
       </demo-snippet>
 
+      <h3>Image positioning</h3>
+      <demo-snippet>
+        <template>
+          <style>
+            .positioned {
+              --paper-image-upload-button-width: 180px;
+              --paper-image-upload-button-height: 120px;
+              --paper-image-upload-button-border-radius: 0;
+
+              --paper-image-upload-button-image-sizing: contain;
+              --paper-image-upload-button-image-position: left bottom;
+            }
+          </style>
+          <paper-image-upload-button
+            image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
+            class="positioned"
+          ></paper-image-upload-button>
+        </template>
+      </demo-snippet>
+
       <h3>No existing image</h3>
       <demo-snippet>
         <template>
