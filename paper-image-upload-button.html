@@ -74,7 +74,7 @@ Material Design upload button that previews the image (Polymer)
     </style>
     <div id="image" on-tap="_onTapUpload"></div>
     <iron-icon class="icon" icon="[[_computeIcon(icon, uploading)]]" on-tap="_onTapUpload"></iron-icon>
-    <input id="file" type="file" hidden/>
+    <input id="file" type="file" accept="image/*" hidden/>
   </template>
 
   <script>
