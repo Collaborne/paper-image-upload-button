@@ -142,11 +142,20 @@ Material Design upload button that previews the image (Polymer)
         this.$.file.addEventListener('change', e => {
           const files = this.$.file.files;
           if (files.length > 0) {
-            this.dispatchEvent(new CustomEvent('upload-image', {
-              detail: files[0],
-              bubbles: true,
-              composed: true,
-            }));
+            const file = files[0];
+            const img = new Image();
+            img.onload = () => {
+              this.dispatchEvent(new CustomEvent('upload-image', {
+                detail: {
+                  file,
+                  height: img.height,
+                  width: img.width,
+                },
+                bubbles: true,
+                composed: true,
+              }));
+            }
+            img.src = window.URL.createObjectURL(file);
           }
           // Reset file input element, so that the user can upload the same
           // file again (e.g. if the dialog was cancelled in between)

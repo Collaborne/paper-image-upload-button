@@ -27,9 +27,11 @@
             <template>
               <paper-image-upload-button
                 image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
-                on-upload-image="onUploadImage"
                 disabled="[[disabled]]"
                 uploading="[[uploading]]"
+                natural-width="{{naturalWidth}}"
+                natural-height="{{naturalHeight}}"
+                on-upload-image="onUploadImage"
               ></paper-image-upload-button>
               <paper-checkbox checked="{{disabled}}">Disabled</paper-checkbox>
               <paper-checkbox checked="{{uploading}}">Uploading</paper-checkbox>
@@ -39,8 +41,8 @@
           <script>
             const scope = document.querySelector("dom-bind");
             scope.onUploadImage = e => {
-              const fileToUpload = e.detail;
-              alert(`Upload image "${fileToUpload.name}"`);
+              const {file, width, height} = e.detail;
+              alert(`Upload image "${file.name} (${width} x ${height})"`);
             };
           </script>
         </template>
