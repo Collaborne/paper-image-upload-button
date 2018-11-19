@@ -48,15 +48,19 @@ Material Design upload button that previews the image (Polymer)
         background-color: var(--paper-image-upload-button-hover-background-color, black);
       }
 
-      .icon {
+      .overlay {
         position: absolute;
         top: calc(50% - 12px);
-        left: calc(50% - 12px);
-        color: white;
+        width: 100%;
+        text-align: center;
         opacity: 0;
         transition: opacity 0.25s;
       }
-      :host([can-upload]:hover) .icon, :host([uploading]) .icon {
+
+      .icon {
+        color: white;
+      }
+      :host([can-upload]:hover) .overlay, :host([uploading]) .overlay {
         opacity: 1;
       }
 
@@ -71,9 +75,13 @@ Material Design upload button that previews the image (Polymer)
       :host([uploading]) .icon {
         animation: spinning 1s linear infinite;
       }
+
     </style>
     <div id="image" on-tap="_onTapUpload"></div>
-    <iron-icon class="icon" icon="[[_computeIcon(icon, uploading)]]" on-tap="_onTapUpload"></iron-icon>
+    <div class="overlay">
+      <iron-icon class="icon" icon="[[_computeIcon(icon, uploading)]]" on-tap="_onTapUpload"></iron-icon><br>
+      <slot></slot>
+    </div>
     <input id="file" type="file" accept="image/*" hidden/>
   </template>
 

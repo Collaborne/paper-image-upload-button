@@ -104,6 +104,25 @@
           <paper-image-upload-button class="non-existing"></paper-image-upload-button>
         </template>
       </demo-snippet>
+
+      <h3>Custom slot</h3>
+      <demo-snippet>
+        <template>
+          <style>
+            .custom-button {
+              --paper-image-upload-button-width: 180px;
+              --paper-image-upload-button-height: 180px;
+            }
+
+            .link {
+              color: white;
+            }
+          </style>
+          <paper-image-upload-button class="custom-button">
+            <a class="link" href="http://www.cnn.com">Learn more</a>
+          </paper-image-upload-button>
+        </template>
+      </demo-snippet>
     </div>
   </body>
 </html>
