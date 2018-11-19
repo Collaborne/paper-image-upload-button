@@ -60,7 +60,7 @@ Material Design upload button that previews the image (Polymer)
       .icon {
         color: white;
       }
-      :host([can-upload]:hover) .overlay, :host([uploading]) .overlay {
+      :host([can-upload]:hover) .overlay, :host([can-upload][no-image]) .overlay, :host([uploading]) .overlay {
         opacity: 1;
       }
 
@@ -75,7 +75,6 @@ Material Design upload button that previews the image (Polymer)
       :host([uploading]) .icon {
         animation: spinning 1s linear infinite;
       }
-
     </style>
     <div id="image" on-tap="_onTapUpload"></div>
     <div class="overlay">
@@ -135,6 +134,16 @@ Material Design upload button that previews the image (Polymer)
             computed: '_computeCanUpload(disabled, uploading)',
             reflectToAttribute: true,
           },
+
+          /**
+           * True if no image is configured
+           */
+          noImage: {
+            type: Boolean,
+            value: true,
+            computed: '_computeNoImage(image)',
+            reflectToAttribute: true,
+          },
         };
       }
 
@@ -190,6 +199,10 @@ Material Design upload button that previews the image (Polymer)
 
       _computeIcon(icon, uploading) {
         return !uploading ? icon : 'icons:refresh';
+      }
+
+      _computeNoImage(image) {
+        return image && image.length < 0;
       }
     }
     window.customElements.define(PaperImageUploadButton.is, PaperImageUploadButton);

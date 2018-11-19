@@ -101,7 +101,15 @@
               --paper-image-upload-button-background-color: blue;
             }
           </style>
-          <paper-image-upload-button class="non-existing"></paper-image-upload-button>
+          <dom-bind>
+            <template>
+              <paper-image-upload-button
+                disabled="[[disabled]]"
+                class="non-existing"
+              ></paper-image-upload-button>
+              <paper-checkbox checked="{{disabled}}">Disabled</paper-checkbox>
+            </template>
+          </dom-bind>
         </template>
       </demo-snippet>
 
