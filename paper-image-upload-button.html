@@ -202,7 +202,7 @@ Material Design upload button that previews the image (Polymer)
       }
 
       _computeNoImage(image) {
-        return image && image.length < 0;
+        return !image || image.length === 0;
       }
     }
     window.customElements.define(PaperImageUploadButton.is, PaperImageUploadButton);
