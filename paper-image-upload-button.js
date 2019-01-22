@@ -1,5 +1,5 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import '@polymer/iron-icon';
 import '@polymer/iron-icons';
 
@@ -43,6 +43,7 @@ class PaperImageUploadButton extends GestureEventListeners(PolymerElement) {
 				background-repeat: no-repeat;
 				transition: filter 0.25s, background-color 0.25s;
 			}
+
 			:host([can-upload]:hover) #image, :host([uploading]) #image {
 				filter: brightness(40%);
 				background-color: var(--paper-image-upload-button-hover-background-color, black);
@@ -90,26 +91,14 @@ class PaperImageUploadButton extends GestureEventListeners(PolymerElement) {
 
 	static get properties() {
 		return {
-			/**
-			 * URL to the currently shown image
-			 */
-			image: String,
 
 			/**
-			 * Icon that is shown during hover
+			 * Set to true if users should be allowed to upload images
 			 */
-			icon: {
-				type: String,
-				value: 'icons:file-upload'
-			},
-
-			/**
-			 * True if the image is currently uploading
-			 */
-			uploading: {
-				type: Boolean,
-				value: false,
+			canUpload: {
+				computed: '_computeCanUpload(disabled, uploading)',
 				reflectToAttribute: true,
+				type: Boolean,
 			},
 
 			/**
@@ -121,22 +110,35 @@ class PaperImageUploadButton extends GestureEventListeners(PolymerElement) {
 			},
 
 			/**
-			 * Set to true if users should be allowed to upload images
+			 * Icon that is shown during hover
 			 */
-			canUpload: {
-				type: Boolean,
-				computed: '_computeCanUpload(disabled, uploading)',
-				reflectToAttribute: true,
+			icon: {
+				type: String,
+				value: 'icons:file-upload'
 			},
+
+			/**
+			 * URL to the currently shown image
+			 */
+			image: String,
 
 			/**
 			 * True if no image is configured
 			 */
 			noImage: {
-				type: Boolean,
-				value: true,
 				computed: '_computeNoImage(image)',
 				reflectToAttribute: true,
+				type: Boolean,
+				value: true,
+			},
+
+			/**
+			 * True if the image is currently uploading
+			 */
+			uploading: {
+				reflectToAttribute: true,
+				type: Boolean,
+				value: false,
 			},
 		};
 	}
@@ -150,22 +152,22 @@ class PaperImageUploadButton extends GestureEventListeners(PolymerElement) {
 	ready() {
 		super.ready();
 
-		this.$.file.addEventListener('change', e => {
+		this.$.file.addEventListener('change', () => {
 			const files = this.$.file.files;
 			if (files.length > 0) {
 				const file = files[0];
 				const img = new Image();
 				img.onload = () => {
 					this.dispatchEvent(new CustomEvent('upload-image', {
+						bubbles: true,
+						composed: true,
 						detail: {
 							file,
 							height: img.height,
 							width: img.width,
 						},
-						bubbles: true,
-						composed: true,
 					}));
-				}
+				};
 				img.src = window.URL.createObjectURL(file);
 			}
 			// Reset file input element, so that the user can upload the same

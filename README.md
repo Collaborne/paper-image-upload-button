@@ -1,4 +1,4 @@
-# \<paper-image-upload-button\> [![Bower version](https://badge.fury.io/bo/paper-image-upload-button.svg)](http://badge.fury.io/bo/paper-image-upload-button) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Collaborne/paper-image-upload-button)
+# \<paper-image-upload-button\> [![Build Status](https://travis-ci.org/Collaborne/paper-image-upload-but.svg?branch=master)](https://travis-ci.org/Collaborne/paper-image-upload-but) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Collaborne/paper-image-upload-button)
 
 Material Design upload button that previews the image (Polymer)
 
@@ -6,16 +6,6 @@ To use this elements:
 
 `npm install @collaborne/paper-image-upload-button`
 
-<!--
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="paper-image-upload-button.html">
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
 ```html
 <paper-image-upload-button
   image="https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg"
