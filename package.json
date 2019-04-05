@@ -13,7 +13,8 @@
   "homepage": "https://github.com/Collaborne/paper-image-upload-button",
   "name": "@collaborne/paper-image-upload-button",
   "version": "4.0.0",
-  "main": "paper-image-upload-button.js",
+  "main": "dist/paper-image-upload-button.js",
+  "types": "dist/paper-image-upload-button.d.ts",
   "author": "Collaborne B.V.",
   "license": "Apache-2.0",
   "bugs": {
