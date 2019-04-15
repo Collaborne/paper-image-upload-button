@@ -71,6 +71,8 @@ export class PaperImageUploadButton extends LitElement {
 				width: 100%;
 				height: 100%;
 				display: inline-block;
+				border-radius: var(--paper-image-upload-button-border-radius, 50%);
+				overflow: hidden;
 				@apply --layout-center-center;
 				@apply --layout-vertical;
 				box-sizing: border-box;
