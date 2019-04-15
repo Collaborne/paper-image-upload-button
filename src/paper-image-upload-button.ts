@@ -52,7 +52,7 @@ export class PaperImageUploadButton extends LitElement {
 				display: inline-block;
 				position: relative;
 				overflow: hidden;
-				border-width: var(--paper-image-upload-button-border-width, 2px);;
+				border-width: var(--paper-image-upload-button-border-width, 2px);
 				border-radius: var(--paper-image-upload-button-border-radius, 50%);
 				border-style: var(--paper-image-upload-button-border-style, solid);
 				border-color: var(--paper-image-upload-button-border-color, gray);

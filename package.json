@@ -32,7 +32,7 @@
     "lint": "tslint -c tslint.json \"src/**/*.ts\"",
     "test": "npm run lint && echo 'No tests yet'",
     "prepublish": "npm run lint && npm run build",
-    "start-dev": "node_modules/typescript/bin/tsc --watch & polymer serve"
+    "start-dev": "node_modules/typescript/bin/tsc --watch & polymer serve --hostname 0.0.0.0"
   },
   "dependencies": {
     "@polymer/iron-icon": "^3.0.0",
