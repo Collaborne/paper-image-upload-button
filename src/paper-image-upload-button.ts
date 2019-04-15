@@ -124,7 +124,7 @@ export class PaperImageUploadButton extends LitElement {
 		const icon = !this.uploading ? this.icon : 'icons:refresh';
 
 		return html`
-			<div id="image" style="background-image: ${imageUrl}"></div>
+			<div id="image" style="background-image: ${imageUrl}" @click="${this._onTapUpload}"></div>
 			<div class="overlay">
 				<iron-icon class="icon" icon="${icon}" @click="${this._onTapUpload}"></iron-icon><br>
 				<slot></slot>
@@ -135,7 +135,7 @@ export class PaperImageUploadButton extends LitElement {
 	protected firstUpdated() {
 		// TODO: How to declare event listener declarative on <div>
 		const image = this.shadowRoot!.getElementById('image')! as HTMLDivElement;
-		image.addEventListener('click', this._onTapUpload.bind(this));
+		image.addEventListener('tap', this._onTapUpload.bind(this));
 	}
 
 	protected updated() {
