@@ -60,7 +60,7 @@ export class PaperImageUploadButton extends LitElement {
 				height: var(--paper-image-upload-button-height, 92px);
 				transition: background-color 0.25s;
 			}
-			:host([canupload]) label, :host([canupload]) .overlay {
+			:host([canupload]) label, :host([canupload]) .custom-overlay {
 				cursor: pointer;
 			}
 			:host([canupload]:hover), :host([uploading]) {
@@ -89,19 +89,23 @@ export class PaperImageUploadButton extends LitElement {
 				background-color: var(--paper-image-upload-button-hover-background-color, black);
 			}
 
-			.overlay {
+			.custom-overlay, .icon {
 				position: absolute;
-				top: calc(50% - 12px);
-				width: 100%;
-				text-align: center;
 				opacity: 0;
 				transition: opacity 0.25s;
 			}
-
 			.icon {
+				top: calc(50% - 12px);
+				left: calc(50% - 12px);
 				color: white;
 			}
-			:host([canupload]:hover) .overlay, :host([canupload][noimage]) .overlay, :host([uploading]) .overlay {
+			.custom-overlay {
+				top: calc(50% + 12px);
+				width: 100%;
+				text-align: center;
+			}
+
+			:host([canupload]:hover) .icon, :host([canupload][noimage]) .icon, :host([uploading]) .icon, :host([canupload]:hover) .custom-overlay, :host([canupload][noimage]) .custom-overlay, :host([uploading]) .custom-overlay {
 				opacity: 1;
 			}
 
@@ -125,8 +129,8 @@ export class PaperImageUploadButton extends LitElement {
 
 		return html`
 			<label for="file" id="image" style="background-image: ${imageUrl}"></label>
-			<div class="overlay">
-				<label for="file"><iron-icon class="icon" icon="${icon}"></iron-icon><label for="file"><br>
+			<label for="file" class="icon"><iron-icon icon="${icon}"></iron-icon></label>
+			<div class="custom-overlay">
 				<slot></slot>
 			</div>
 			<input
