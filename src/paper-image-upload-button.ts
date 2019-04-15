@@ -60,7 +60,7 @@ export class PaperImageUploadButton extends LitElement {
 				height: var(--paper-image-upload-button-height, 92px);
 				transition: background-color 0.25s;
 			}
-			:host([canupload]) {
+			:host([canupload]) label, :host([canupload]) .overlay {
 				cursor: pointer;
 			}
 			:host([canupload]:hover), :host([uploading]) {
@@ -124,18 +124,18 @@ export class PaperImageUploadButton extends LitElement {
 		const icon = !this.uploading ? this.icon : 'icons:refresh';
 
 		return html`
-			<div id="image" style="background-image: ${imageUrl}" @click="${this._onTapUpload}"></div>
+			<label for="file" id="image" style="background-image: ${imageUrl}"></label>
 			<div class="overlay">
-				<iron-icon class="icon" icon="${icon}" @click="${this._onTapUpload}"></iron-icon><br>
+				<label for="file"><iron-icon class="icon" icon="${icon}"></iron-icon><label for="file"><br>
 				<slot></slot>
 			</div>
-			<input id="file" type="file" accept="image/*" hidden @change="${this._onFileChange}">`;
-	}
-
-	protected firstUpdated() {
-		// TODO: How to declare event listener declarative on <div>
-		const image = this.shadowRoot!.getElementById('image')! as HTMLDivElement;
-		image.addEventListener('tap', this._onTapUpload.bind(this));
+			<input
+				id="file"
+				type="file"
+				accept="image/*"
+				hidden
+				@change="${this._onFileChange}"
+				.disabled="${!this.canUpload}">`;
 	}
 
 	protected updated() {
@@ -167,15 +167,6 @@ export class PaperImageUploadButton extends LitElement {
 		// Reset file input element, so that the user can upload the same
 		// file again (e.g. if the dialog was cancelled in between)
 		this.fileEl.value = '';
-	}
-
-	private _onTapUpload() {
-		if (!this.canUpload) {
-			return;
-		}
-
-		// Trigger file upload
-		this.fileEl.click();
 	}
 
 	private get fileEl(): HTMLInputElement {
